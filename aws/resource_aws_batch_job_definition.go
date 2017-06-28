@@ -27,7 +27,7 @@ func resourceAwsBatchJobDefinition() *schema.Resource {
 			},
 			"container_properties": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 				StateFunc: func(v interface{}) string {
 					hash := sha1.Sum([]byte(v.(string)))

@@ -79,7 +79,7 @@ func resourceAwsBatchComputeEnvironment() *schema.Resource {
 							Set:      schema.HashString,
 							ForceNew: true,
 						},
-						"spot_iam_fleet_role": {
+						"spot_iam_fleet_role_arn": {
 							Type:     schema.TypeString,
 							Optional: true,
 							ForceNew: true,
@@ -274,7 +274,7 @@ func createComputeResource(d *schema.ResourceData) *batch.ComputeResource {
 		InstanceRole:     aws.String(compute["instance_role_arn"].(string)),
 		MaxvCpus:         aws.Int64(int64(compute["max_vcpus"].(int))),
 		MinvCpus:         aws.Int64(int64(compute["min_vcpus"].(int))),
-		SpotIamFleetRole: aws.String(compute["spot_iam_fleet_role"].(string)),
+		SpotIamFleetRole: aws.String(compute["spot_iam_fleet_role_arn"].(string)),
 		Type:             aws.String(compute["type"].(string)),
 	}
 
@@ -355,7 +355,7 @@ func flattenComputeResource(cr *batch.ComputeResource) []map[string]interface{} 
 	resource["max_vcpus"] = cr.MaxvCpus
 	resource["min_vcpus"] = cr.MinvCpus
 	resource["security_group_ids"] = cr.SecurityGroupIds
-	resource["spot_iam_fleet_role"] = cr.SpotIamFleetRole
+	resource["spot_iam_fleet_role_arn"] = cr.SpotIamFleetRole
 	resource["subnets"] = cr.Subnets
 	resource["type"] = cr.Type
 	return []map[string]interface{}{resource}
