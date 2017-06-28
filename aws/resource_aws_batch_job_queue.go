@@ -56,8 +56,8 @@ func resourceAwsBatchJobQueueCreate(d *schema.ResourceData, meta interface{}) er
 		Priority:                aws.Int64(int64(d.Get("priority").(int))),
 		State:                   aws.String(d.Get("state").(string)),
 	}
-	out, err := conn.CreateJobQueue(&input)
 	name := d.Get("name").(string)
+	out, err := conn.CreateJobQueue(&input)
 	if err != nil {
 		return fmt.Errorf("%s %q", err, name)
 	}

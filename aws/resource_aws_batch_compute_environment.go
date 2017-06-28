@@ -237,10 +237,10 @@ func resourceAwsBatchComputeEnvironmentDelete(d *schema.ResourceData, meta inter
 		_, err = conn.DeleteComputeEnvironment(&batch.DeleteComputeEnvironmentInput{
 			ComputeEnvironment: aws.String(sn),
 		})
-		if err == nil {
-			return nil
+		if err != nil {
+			return resource.RetryableError(err)
 		}
-		return resource.RetryableError(err)
+		return nil
 	})
 
 	stateConf := &resource.StateChangeConf{
